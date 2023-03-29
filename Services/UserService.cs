@@ -1,33 +1,33 @@
 ﻿namespace EventManagment.Services
 {
-    public class BookingService : IBookingService
+    public class UserService : IUserService
     {
-        public Booking CreateBooking()
+        public User? CreateUser()
         {
             throw new NotImplementedException();
         }
 
-        public List<Booking> GetAllBookingsByUser()
+        public User? DeleteUser()
         {
             throw new NotImplementedException();
         }
 
-        public Booking? GetBookingDetails()
+        public User? GetUser()
         {
             throw new NotImplementedException();
         }
 
-        public List<Booking>? GetBookinsByEventShow()
+        public User? LogInUser()
         {
             throw new NotImplementedException();
         }
 
-        public List<Seat>? GetSeatsByShow()
+        public User? LogOutUser()
         {
             throw new NotImplementedException();
         }
 
-        public List<Show>? GetShows()
+        public User? UpdateUser()
         {
             throw new NotImplementedException();
         }

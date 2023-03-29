@@ -1,6 +1,6 @@
 namespace EventManagment.Models
 {
-    class Review
+    public class Review
     {
         public int Id { get; set; }
         public string? Body { get; set; }
@@ -9,6 +9,9 @@ namespace EventManagment.Models
 
         public int Rating { get; set; }
 
+        public User? User { get; set; }
+        public Event? Event { get; set; }
+        public Venue? Venue { get; set; }
 
     }
 }

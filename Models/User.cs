@@ -1,6 +1,6 @@
 namespace EventManagment.Models
 {
-    class User
+    public class User
     {
         public int Id {get; set;}
 
@@ -13,9 +13,12 @@ namespace EventManagment.Models
         public string? PhoneNumber {get; set;}
 
         public UserTypes UserType {get; set;}
+        public ICollection<Review>? Reviews { get; set; }
+
+        public ICollection<Booking>? Bookings { get; set; }
     }
 
-    enum UserTypes
+    public enum UserTypes
     {
         ADMIN,
         CUSTOMER,

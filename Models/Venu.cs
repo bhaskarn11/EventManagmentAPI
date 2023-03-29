@@ -1,10 +1,6 @@
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-
 namespace EventManagment.Models
 {
-    class Venue
+    public class Venue
     {
         public int Id {get; set;}
 
@@ -17,5 +13,9 @@ namespace EventManagment.Models
 
         [Required]
         public string? Address {get; set;}
+
+        public ICollection<Review>? Reviews { get; set; }
+
+        public ICollection<Event>? Events { get; set; }
     }
 }
