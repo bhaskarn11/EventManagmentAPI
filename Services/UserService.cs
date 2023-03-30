@@ -1,33 +1,35 @@
-﻿namespace EventManagment.Services
+﻿using EventManagment.Dtos;
+
+namespace EventManagment.Services
 {
     public class UserService : IUserService
     {
-        public User? CreateUser()
+        public Task<User>? CreateUser(CreateUserDto createUser)
         {
             throw new NotImplementedException();
         }
 
-        public User? DeleteUser()
+        public Task<int>? DeleteUser(int userId)
         {
             throw new NotImplementedException();
         }
 
-        public User? GetUser()
+        public Task<User>? GetUser(int userId)
         {
             throw new NotImplementedException();
         }
 
-        public User? LogInUser()
+        public Task<User>? LogInUser()
         {
             throw new NotImplementedException();
         }
 
-        public User? LogOutUser()
+        public Task<User>? LogOutUser()
         {
             throw new NotImplementedException();
         }
 
-        public User? UpdateUser()
+        public Task<User>? UpdateUser(UpdateUserDto updateUserDto)
         {
             throw new NotImplementedException();
         }

@@ -1,40 +1,74 @@
-﻿namespace EventManagment.Services
+﻿using EventManagment.Dtos;
+using Microsoft.EntityFrameworkCore;
+
+namespace EventManagment.Services
 {
     public class EventService : IEventService
     {
-        public Event CreateEvent()
+        private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
+
+        public EventService(AppDbContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
+        public async Task<Event> CreateEvent(EventDto createEvent)
+        {
+
+            Event evnt = _mapper.Map<EventDto, Event>(createEvent);
+
+            _context.Events.Add(evnt);
+            await _context.SaveChangesAsync();
+            return evnt;
+        }
+
+        public async Task<int> DeleteEvent(int eventId)
+        {
+            Event? evnt = await _context.Events.Where(p => p.Id == eventId).SingleOrDefaultAsync();
+            if (evnt == null)
+            {
+                throw new Exception("Object Not found");
+            }
+
+            _context.Remove(evnt);
+            return await _context.SaveChangesAsync();
+        }
+
+        public Task<List<Event>> EventSearch(string Name)
         {
             throw new NotImplementedException();
         }
 
-        public Event DeleteEvent()
+        public Task<List<Event>> GetAllEventByRegion(Regions region)
         {
             throw new NotImplementedException();
         }
 
-        public List<Event> EventSearch()
+        public async Task<List<Event>> GetAllEventByVenue(int venueId)
         {
-            throw new NotImplementedException();
+            List<Event>? events = await _context.Events.Where(p => p.VenueId == venueId).ToListAsync();
+            return events;
+
         }
 
-        public List<Event> GetAllEventByRegion()
+        public async Task<Event>? GetEvent(int eventId)
         {
-            throw new NotImplementedException();
+            Event? evnt = await _context.Events.Where(p => p.Id == eventId).SingleOrDefaultAsync();
+            return evnt == null ? throw new Exception("Event not found") : evnt;
         }
 
-        public List<Event> GetAllEventByVenue()
+        public async Task<Event> UpdateEvent(int eventId, EventDto eventDto)
         {
-            throw new NotImplementedException();
-        }
+            Event? evnt = await _context.Events.Where(p => p.Id == eventId).SingleOrDefaultAsync();
+            if (evnt == null)
+            {
+                throw new Exception("Event not found");
+            }
 
-        public Event? GetEvent()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Event UpdateEvent()
-        {
-            throw new NotImplementedException();
+            _context.Events.Update(_mapper.Map<EventDto, Event>(eventDto));
+            await _context.SaveChangesAsync();
+            return evnt;
         }
     }
 }

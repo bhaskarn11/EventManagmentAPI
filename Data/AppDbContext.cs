@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventManagment.Models
 {
-    class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
 
         public AppDbContext(DbContextOptions options) : base(options)

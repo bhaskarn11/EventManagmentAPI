@@ -1,15 +1,17 @@
-﻿namespace EventManagment.Services.Interfaces
+﻿using EventManagment.Dtos;
+
+namespace EventManagment.Services.Interfaces
 {
     public interface IEventService
     {
-        public Event CreateEvent();
+        public Task<Event> CreateEvent(EventDto createEvent);
 
-        public Event? GetEvent();
+        public Task<Event>? GetEvent(int eventId);
 
-        public List<Event> GetAllEventByRegion();
-        public List<Event> GetAllEventByVenue();
-        public List<Event> EventSearch();
-        public Event DeleteEvent();
-        public Event UpdateEvent();
+        public Task<List<Event>> GetAllEventByRegion(Regions region);
+        public Task<List<Event>> GetAllEventByVenue(int venueId);
+        public Task<List<Event>> EventSearch(string eventName);
+        public Task<int> DeleteEvent(int eventId);
+        public Task<Event> UpdateEvent(int eventId, EventDto eventDto);
     }
 }

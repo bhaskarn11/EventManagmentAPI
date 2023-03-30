@@ -1,15 +1,17 @@
-﻿namespace EventManagment.Services.Interfaces
+﻿using EventManagment.Dtos;
+
+namespace EventManagment.Services.Interfaces
 {
     public interface IUserService
     {
-        public User? GetUser();
+        public Task<User>? GetUser(int userId);
 
-        public User? UpdateUser();
+        public Task<User>? UpdateUser(UpdateUserDto updateUserDto);
 
-        public User? CreateUser();
-        public User? LogInUser();
-        public User? LogOutUser();
+        public Task<User>? CreateUser(CreateUserDto createUser);
+        public Task<User>? LogInUser();
+        public Task<User>? LogOutUser();
 
-        public User? DeleteUser();
+        public Task<int>? DeleteUser(int userId);
     }
 }

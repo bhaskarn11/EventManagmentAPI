@@ -1,14 +1,16 @@
-﻿namespace EventManagment.Services.Interfaces
+﻿using EventManagment.Dtos;
+
+namespace EventManagment.Services.Interfaces
 {
 	public interface IBookingService
 	{
-		public Booking CreateBooking();
-		public List<Booking> GetAllBookingsByUser();
-		public Booking? GetBookingDetails();
+		public Task<Booking>? CreateBooking(CreateBooking createBooking);
+		public Task<List<Booking>>? GetAllBookingsByUser(int userId);
+		public Task<Booking>? GetBookingDetails(int bookingId);
 
-		public List<Show>? GetShows();
-		public List<Booking>? GetBookinsByEventShow();
-		public List<Seat>? GetSeatsByShow();
+		public Task<List<Show>>? GetShows(int eventId, int venueId);
+		public Task<List<Booking>>? GetBookinsByEventShow(int showId);
+		public Task<List<Seat>>? GetSeatsByShow(int showId);
 
 	}
 }

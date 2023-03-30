@@ -4,10 +4,13 @@ namespace EventManagment.Models
     {
         public int Id {get; set;}
 
+        public int UserId { get; set; }
+
         public User? User {get; set;}
 
         public DateTime BookingDate {get; set;}
 
+        public int ShowId { get; set; }
         public Show? Show { get; set; }
 
         public string? EventName {get; set; }
@@ -21,5 +24,14 @@ namespace EventManagment.Models
 
         public decimal TotalTicketPrice { get; set; }
 
+        public BookingStatus BookingStatus { get; set; }
+
+    }
+
+    public enum BookingStatus
+    {
+        CONFIRMED,
+        CANCELLED,
+        PENDING
     }
 }
