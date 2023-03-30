@@ -1,13 +1,17 @@
-﻿namespace EventManagment.Services.Interfaces
+﻿using EventManagment.Dtos;
+
+namespace EventManagment.Services.Interfaces
 {
     public interface IVenueService
     {
-        public List<Venue> GetAllVenueByRegion();
+        public Task<List<Venue>> GetAllVenueByRegion(Regions region);
 
-        public Venue? GetVenueDetails();
+        public Task<Venue?> GetVenueDetails(int venuId);
 
-        public Venue? UpdateVenueDetails();
+        public Task<Venue?> UpdateVenueDetails(int venueId, UpdateVenue updateVenue);
 
-        public void DeleteVenue();
+        public Task<int> DeleteVenue(int venueId);
+
+        public Task<Venue> CreateVenue(int venueId, CreateVenue createVenue);
     }
 }

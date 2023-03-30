@@ -20,6 +20,9 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IVenueService, VenueService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 ﻿using EventManagment.Dtos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EventManagment.Services
 {
@@ -35,14 +36,22 @@ namespace EventManagment.Services
             return await _context.SaveChangesAsync();
         }
 
-        public Task<List<Event>> EventSearch(string Name)
+        public async Task<List<Event>> EventSearch(string name)
         {
-            throw new NotImplementedException();
+            List<Event> events = await _context.Events.Where(p => p.Name!.Contains(name)).ToListAsync();
+            if (events.IsNullOrEmpty())
+                throw new Exception("events not found");
+
+            return events;
         }
 
-        public Task<List<Event>> GetAllEventByRegion(Regions region)
+        public async Task<List<Event>> GetAllEventByRegion(Regions region)
         {
-            throw new NotImplementedException();
+            List<Event> events = await _context.Events.Where(p => p.EventRegion == region).ToListAsync();
+
+            if (events.IsNullOrEmpty())
+                throw new Exception("events not found");
+            return events;
         }
 
         public async Task<List<Event>> GetAllEventByVenue(int venueId)

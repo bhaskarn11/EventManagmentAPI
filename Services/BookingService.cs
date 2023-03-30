@@ -1,7 +1,6 @@
 ﻿using EventManagment.Dtos;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+
 
 namespace EventManagment.Services
 {
