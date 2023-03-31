@@ -12,6 +12,6 @@ namespace EventManagment.Services.Interfaces
 
         public Task<int> DeleteVenue(int venueId);
 
-        public Task<Venue> CreateVenue(int venueId, CreateVenue createVenue);
+        public Task<Venue> CreateVenue(CreateVenue createVenue);
     }
 }

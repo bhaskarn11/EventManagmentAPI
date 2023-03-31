@@ -9,9 +9,9 @@ namespace EventManagment.Controllers
     [ApiController]
     public class VenuesController : ControllerBase
     {
-        private readonly VenueService venueService;
+        private readonly IVenueService venueService;
 
-        public VenuesController(VenueService venueService)
+        public VenuesController(IVenueService venueService)
         {
             this.venueService = venueService;
         }
@@ -28,9 +28,9 @@ namespace EventManagment.Controllers
 
        
         [HttpPost]
-        public async Task<ServiceResponse<Venue?>> PostVenue(int id, CreateVenue createVenue)
+        public async Task<ServiceResponse<Venue?>> PostVenue(CreateVenue createVenue)
         {
-            Venue? venue = await venueService.CreateVenue(id, createVenue);
+            Venue? venue = await venueService.CreateVenue(createVenue);
             return new ServiceResponse<Venue?>(venue, true);
         }
 

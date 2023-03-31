@@ -52,7 +52,7 @@ namespace EventManagment.Services
             return venue;
         }
 
-        public async Task<Venue> CreateVenue(int venueId, CreateVenue createVenue)
+        public async Task<Venue> CreateVenue(CreateVenue createVenue)
         {
             Venue venue = mapper.Map<CreateVenue, Venue>(createVenue);
 

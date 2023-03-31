@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,36 +16,57 @@ namespace EventManagment.Controllers
             this.bookingService = bookingService;
         }
 
-        // GET: api/<BookingsController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        
+        [HttpGet("GetBookingByUser")]
+        public async Task<ServiceResponse<IEnumerable<Booking>>> Get(int userId)
         {
-            return new string[] { "value1", "value2" };
+            var bookings = await bookingService.GetAllBookingsByUser(userId);
+            if (bookings.IsNullOrEmpty())
+                return new ServiceResponse<IEnumerable<Booking>>(bookings, false);
+            return new ServiceResponse<IEnumerable<Booking>>(bookings, true);
         }
 
-        // GET api/<BookingsController>/5
+
+
+        [HttpGet("GetBookingByEventShow")]
+        public async Task<ServiceResponse<IEnumerable<Booking>>> GetBookingByShow(int showId)
+        {
+            var bookings = await bookingService.GetBookinsByEventShow(showId);
+            if (bookings.IsNullOrEmpty())
+                return new ServiceResponse<IEnumerable<Booking>>(bookings, false);
+            return new ServiceResponse<IEnumerable<Booking>>(bookings, true);
+        }
+
+        [HttpGet("GetShows")]
+        public async Task<List<Show>> GetShows(int eventId, int venueId)
+        {
+            var shows = await bookingService.GetShows(eventId, venueId);
+            return shows;
+        }
+
+
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ServiceResponse<Booking?>> GetBooking(int id)
         {
-            return "value";
+           Booking? booking = await bookingService.GetBookingDetails(id);
+            if (booking == null)
+                return new ServiceResponse<Booking?>(null, false);
+            return new ServiceResponse<Booking?>(booking, true);
         }
 
-        // POST api/<BookingsController>
+       
+
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<BookingsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/<BookingsController>/5
+        
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<int> Delete(int id)
         {
+            return await bookingService.DeleteBooking(id);
         }
     }
 }

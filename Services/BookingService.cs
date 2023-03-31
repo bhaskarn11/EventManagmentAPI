@@ -13,7 +13,7 @@ namespace EventManagment.Services
 		}
 
 
-		public async Task<Booking>? CreateBooking(CreateBooking createBooking)
+		public async Task<Booking?> CreateBooking(CreateBooking createBooking)
 		{
 
 			
@@ -39,14 +39,17 @@ namespace EventManagment.Services
 			return booking;
 		}
 
-		public async Task<List<Booking>>? GetAllBookingsByUser(int userId)
+
+		public async Task<List<Booking>> GetAllBookingsByUser(int userId)
 		{
 			User? user = await _context.Users.Where(p => p.Id == userId).FirstOrDefaultAsync();
 
-            return user == null ? throw new Exception("User not found") : await _context.Bookings.Where(p => p.User!.Id == user.Id).ToListAsync();
+            return user == null ? throw new Exception("User not found") 
+				: await _context.Bookings.Where(p => p.User!.Id == user.Id).ToListAsync();
         }
 
-        public async Task<Booking>? GetBookingDetails(int bookingId)
+
+        public async Task<Booking?> GetBookingDetails(int bookingId)
 		{
 			Booking? bookingDetails = await _context.Bookings.Where(p => p.Id == bookingId).FirstOrDefaultAsync();
             if (bookingDetails == null)
@@ -57,19 +60,33 @@ namespace EventManagment.Services
 			return bookingDetails;
         }
 
-		public async Task<List<Booking>>? GetBookinsByEventShow(int showId)
+		public async Task<List<Booking>> GetBookinsByEventShow(int showId)
 		{
 			return await _context.Bookings.Where(p => p.ShowId == showId).ToListAsync();
 		}
 
-		public async Task<List<Seat>>? GetSeatsByShow(int showId)
+
+		public async Task<List<Seat>> GetSeatsByShow(int showId)
 		{
 			return await _context.Seats.Where(p => p.ShowId == showId).ToListAsync();
 		}
 
-		public async Task<List<Show>>? GetShows(int eventId, int venueId)
+
+		public async Task<List<Show>> GetShows(int eventId, int venueId)
 		{
 			return await _context.Shows.Where(p => p.EventId == eventId && p.VenueId == venueId).ToListAsync();
 		}
-	}
+
+
+        public async Task<int> DeleteBooking(int bookingId)
+		{
+			var booking = await _context.Bookings.Where(p => p.Id == bookingId).FirstOrDefaultAsync();
+            if (booking == null)
+            {
+				throw new Exception("No booking found");
+            }
+			_context.Remove(booking);
+			return await _context.SaveChangesAsync();
+        }
+    }
 }
